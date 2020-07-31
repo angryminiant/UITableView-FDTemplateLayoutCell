@@ -40,6 +40,11 @@ typedef NS_ENUM(NSInteger, FDSimulatedCacheMode) {
     }];
 }
 
+- (IBAction)cacheTyeChanged:(UISegmentedControl *)sender {
+    
+    [self.tableView reloadData];
+}
+
 - (void)buildTestDataThen:(void (^)(void))then {
     // Simulate an async request
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

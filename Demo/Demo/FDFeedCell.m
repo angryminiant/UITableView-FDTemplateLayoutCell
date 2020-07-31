@@ -37,6 +37,11 @@
     self.contentImageView.image = entity.imageName.length > 0 ? [UIImage imageNamed:entity.imageName] : nil;
     self.usernameLabel.text = entity.username;
     self.timeLabel.text = entity.time;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.contentLabel.text = [NSString stringWithFormat:@"%@.%@", entity.content, entity.content];
+    });
+    
 }
 
 // If you are not using auto layout, override this method, enable it by setting

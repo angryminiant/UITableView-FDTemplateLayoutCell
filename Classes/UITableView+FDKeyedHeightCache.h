@@ -35,6 +35,6 @@
 
 @interface UITableView (FDKeyedHeightCache)
 
-/// Height cache by key. Generally, you don't need to use it directly.
+/// Height cache by key. Generally, you don't need to use it directly. MA_RunTime,Only_One_Instace
 @property (nonatomic, strong, readonly) FDKeyedHeightCache *fd_keyedHeightCache;
 @end

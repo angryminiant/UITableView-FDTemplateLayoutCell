@@ -37,7 +37,7 @@
 @end
 
 @interface UITableView (FDIndexPathHeightCache)
-/// Height cache by index path. Generally, you don't need to use it directly.
+/// Height cache by index path. Generally, you don't need to use it directly. MA_RunTime,Only_One_Instace
 @property (nonatomic, strong, readonly) FDIndexPathHeightCache *fd_indexPathHeightCache;
 @end
 

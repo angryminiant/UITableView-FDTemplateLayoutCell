@@ -33,6 +33,8 @@
     cell.bounds = cellBounds;
     
     CGFloat rightSystemViewsWidth = 0.0;
+    
+    // 指示器
     for (UIView *view in self.subviews) {
         if ([view isKindOfClass:NSClassFromString(@"UITableViewIndex")]) {
             rightSystemViewsWidth = CGRectGetWidth(view.frame);
@@ -101,6 +103,8 @@
         [cell.contentView addConstraint:widthFenceConstraint];
 
         // Auto layout engine does its math
+        // UILayoutFittingCompressedSize min
+        // UILayoutFittingExpandedSize   max
         fittingHeight = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
         
         // Clean-ups
@@ -146,6 +150,7 @@
 - (__kindof UITableViewCell *)fd_templateCellForReuseIdentifier:(NSString *)identifier {
     NSAssert(identifier.length > 0, @"Expect a valid identifier - %@", identifier);
     
+    // 运行时
     NSMutableDictionary<NSString *, UITableViewCell *> *templateCellsByIdentifiers = objc_getAssociatedObject(self, _cmd);
     if (!templateCellsByIdentifiers) {
         templateCellsByIdentifiers = @{}.mutableCopy;

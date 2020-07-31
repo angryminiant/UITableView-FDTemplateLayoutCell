@@ -24,7 +24,10 @@
 #import <objc/runtime.h>
 
 @interface FDKeyedHeightCache ()
+/// 竖屏高度数据集合
 @property (nonatomic, strong) NSMutableDictionary<id<NSCopying>, NSNumber *> *mutableHeightsByKeyForPortrait;
+
+/// 横屏高度数据集合
 @property (nonatomic, strong) NSMutableDictionary<id<NSCopying>, NSNumber *> *mutableHeightsByKeyForLandscape;
 @end
 
@@ -39,6 +42,8 @@
     return self;
 }
 
+
+/// 根据当前设备方向返回对应高度数据集合
 - (NSMutableDictionary<id<NSCopying>, NSNumber *> *)mutableHeightsByKeyForCurrentOrientation {
     return UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation) ? self.mutableHeightsByKeyForPortrait: self.mutableHeightsByKeyForLandscape;
 }
@@ -74,6 +79,8 @@
 
 @implementation UITableView (FDKeyedHeightCache)
 
+
+/// MA_RunTime,Only_One_Instace
 - (FDKeyedHeightCache *)fd_keyedHeightCache {
     FDKeyedHeightCache *cache = objc_getAssociatedObject(self, _cmd);
     if (!cache) {

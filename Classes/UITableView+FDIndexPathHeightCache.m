@@ -85,6 +85,8 @@ typedef NSMutableArray<NSMutableArray<NSNumber *> *> FDIndexPathHeightsBySection
     }];
 }
 
+/// <#Description#>
+/// @param indexPaths <#indexPaths description#>
 - (void)buildCachesAtIndexPathsIfNeeded:(NSArray *)indexPaths {
     // Build every section array or row array which is smaller than given index path.
     [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath *indexPath, NSUInteger idx, BOOL *stop) {
@@ -118,6 +120,7 @@ typedef NSMutableArray<NSMutableArray<NSNumber *> *> FDIndexPathHeightsBySection
 
 @implementation UITableView (FDIndexPathHeightCache)
 
+/// MA_RunTime,Only_One_Instace
 - (FDIndexPathHeightCache *)fd_indexPathHeightCache {
     FDIndexPathHeightCache *cache = objc_getAssociatedObject(self, _cmd);
     if (!cache) {
@@ -144,6 +147,7 @@ static void __FD_TEMPLATE_LAYOUT_CELL_PRIMARY_CALL_IF_CRASH_NOT_OUR_BUG__(void (
 }
 
 + (void)load {
+    [super load];
     // All methods that trigger height cache's invalidation
     SEL selectors[] = {
         @selector(reloadData),
@@ -157,6 +161,7 @@ static void __FD_TEMPLATE_LAYOUT_CELL_PRIMARY_CALL_IF_CRASH_NOT_OUR_BUG__(void (
         @selector(moveRowAtIndexPath:toIndexPath:)
     };
     
+    // RunTime 替换方法，计算selectors数组长度 除以 单个数据长度 得出 个数
     for (NSUInteger index = 0; index < sizeof(selectors) / sizeof(SEL); ++index) {
         SEL originalSelector = selectors[index];
         SEL swizzledSelector = NSSelectorFromString([@"fd_" stringByAppendingString:NSStringFromSelector(originalSelector)]);
